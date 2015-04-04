@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'>
+	<title>myQuiz</title>
+	<link rel='stylesheet' type='text/css' href='style.css' />
+</head>
+<body ng-app='myApp' ng-controller='myCtl as ctl'>
+
+<div class='first value' ng-click='ctl.firstClick()'>{{ctl.value1}}</div>
+<div class='second value' ng-click='ctl.firstClick()'>{{ctl.value2}}</div>
+
+<!-- use local angular (saved version from src='https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.min.js' -->
+<script src="angular.min.js"></script>
+<script>
+	angular.module( 'myApp', [] )
+	.controller( 'myCtl', [ '$http', '$log', function($http, $log) {
+		var self = this;
+		
+		var values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+		
+		var reset = function() {
+			var index = Math.floor(Math.random() * values.length);
+			self.value1 = values[index];
+			do {
+				var index = Math.floor(Math.random() * values.length);
+				self.value2 = values[index];
+			} while (self.value2 === self.value1);
+		}
+		
+		reset();
+		
+		self.firstClick = function() {
+			reset();
+		}
+		
+		self.secondClick = function() {
+			reset();
+		}
+	
+	}]);
+</script>
+</body>
+</html>

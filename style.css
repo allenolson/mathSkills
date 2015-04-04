@@ -1,0 +1,46 @@
+﻿body {
+	background: #fff;
+	font-family: Apple SD Gothic Neo, sans-serif;
+	color: #000;
+	margin: 0px;
+	padding: 0px;
+	font-size: 11pt;	
+	font-style: normal; 
+	font-variant: normal;
+	font-weight: 400;  
+}
+
+.value {
+	width: 300px;
+	outline: 1px solid #330;
+	line-height: 150px;
+	text-align: center;
+	vertical-align: bottom;
+	/*display: inline;*/
+}
+
+.first {
+	float: left;
+}
+
+.second {
+	float: left;
+}
+
+.clear 
+{ 
+	clear:both; 
+}
+
+.boxed {
+	outline: 1px solid #330;
+}
+
+.bold {
+    font-weight: 700;
+}
+
+.reduced {
+	font-size: small;
+}
+
