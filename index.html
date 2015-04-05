@@ -9,16 +9,18 @@
 
 <div class='canvas group'>
 	<div class='score'>Score: {{ctl.score}}</div>
-	<div class='first value' ng-click='ctl.firstClick()'>{{ctl.value1.value}}</div>
-	<div class='second value' ng-click='ctl.secondClick()'>{{ctl.value2.value}}</div>
-	<div class='instructions'> Click on the value that is larger.</div>
+
+	<div class='first value' ng-click='ctl.firstClick()' ng-show='ctl.gameOn'>{{ctl.value1.value}}</div>
+	<div class='second value' ng-click='ctl.secondClick()' ng-show='ctl.gameOn'>{{ctl.value2.value}}</div>
+	<div class='instructions'>{{ctl.instructions}} </div>
+	<div class='score'>Time Left: {{ctl.timer}}</div>
 </div>
 
 <!-- use local angular (saved version from src='https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.min.js' -->
 <script src="angular.min.js"></script>
 <script>
 	angular.module( 'myApp', [] )
-	.controller( 'myCtl', [ '$http', '$log', function($http, $log) {
+	.controller( 'myCtl', [ '$interval', '$http', '$log', function($interval, $http, $log) {
 		var self = this;
 		var values = [
 			{display: 1, value: 1},
@@ -29,6 +31,21 @@
 			{display: 6, value: 6},
 			{display: 7, value: 7}
 			];
+
+		var startTime = 30;
+		self.gameOn = true;
+		self.score = 0;
+		self.timer = startTime;
+		self.instructions = 'Click on the value that is larger.';
+		
+		var countdown = function() {
+			self.timer--;
+			if (self.timer <= 0) {
+				self.instructions = "Game Over";
+				self.gameOn = false;
+			}
+		}
+		var tick = $interval(countdown, 1000, startTime);
 		
 		var reset = function() {
 			var index = Math.floor(Math.random() * values.length);
@@ -45,7 +62,6 @@
 		}
 		
 		reset();
-		self.score = 0;
 		
 		self.firstClick = function() {
 			if (answer === 1) {
@@ -60,6 +76,7 @@
 			}
 			reset();
 		}
+		
 	
 	}]);
 </script>
