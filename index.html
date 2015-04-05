@@ -9,8 +9,8 @@
 
 <div class='canvas group'>
 	<div class='score'>Score: {{ctl.score}}</div>
-	<div class='first value' ng-click='ctl.firstClick()'>{{ctl.value1}}</div>
-	<div class='second value' ng-click='ctl.secondClick()'>{{ctl.value2}}</div>
+	<div class='first value' ng-click='ctl.firstClick()'>{{ctl.value1.value}}</div>
+	<div class='second value' ng-click='ctl.secondClick()'>{{ctl.value2.value}}</div>
 	<div class='instructions'> Click on the value that is larger.</div>
 </div>
 
@@ -20,7 +20,15 @@
 	angular.module( 'myApp', [] )
 	.controller( 'myCtl', [ '$http', '$log', function($http, $log) {
 		var self = this;
-		var values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+		var values = [
+			{display: 1, value: 1},
+			{display: 2, value: 2},
+			{display: 3, value: 3},
+			{display: 4, value: 4},
+			{display: 5, value: 5},
+			{display: 6, value: 6},
+			{display: 7, value: 7}
+			];
 		
 		var reset = function() {
 			var index = Math.floor(Math.random() * values.length);
@@ -28,8 +36,8 @@
 			do {
 				var index = Math.floor(Math.random() * values.length);
 				self.value2 = values[index];
-			} while (self.value2 === self.value1);
-			if (self.value1 > self.value2) {
+			} while (self.value2.value === self.value1.value);
+			if (self.value1.value > self.value2.value) {
 				answer = 1;
 			} else {
 				answer = 2;
